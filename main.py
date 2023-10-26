@@ -72,7 +72,7 @@ def main():
                 obj_dict = valobj.validate_object(volume=key, obj=obj)
                 if obj_dict is not None:
                     obj_dict.update({"volume": key})
-                    renmv.rename_object(object_dict)
+                    object_dict = renmv.rename_object(obj_dict)
                     renmv.move_object(obj_dict)
                     summary.update(key)
                 else:
@@ -82,7 +82,7 @@ def main():
         logger.info("No new Gorilla Objects found.")
         pass
 
-    complete_message()
+    complete_message(summary)
 
 
 def start_message():
@@ -97,13 +97,14 @@ def start_message():
     logger.info(start_msg)
 
 
-def complete_message():
+def complete_message(summary):
     date_end = str(strftime("%A, %d. %B %Y %I:%M%p", localtime()))
 
     complete_msg = f"\n\
     ================================================================\n\
                 DIVA Restore WatchFolder - Complete\n\
                     {date_end}\n\
+                    {[print(f'{key}:{value}') for key, value in summary.items()]}\n\
     ================================================================\n\
     "
     logger.info(complete_msg)

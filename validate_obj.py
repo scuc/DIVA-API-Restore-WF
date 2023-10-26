@@ -1,5 +1,6 @@
 import logging
 import logging.config
+import os
 import sqlite3
 
 import config
@@ -21,7 +22,7 @@ def validate_object(volume=None, obj=None):
         logger.info(f"File size validation failed for: {obj}")
         return None
     else:
-        obj_dict = check_db(obj)
+        obj_dict = check_db(os.path.basename(obj))
         return obj_dict
 
 
@@ -46,7 +47,7 @@ def check_db(obj):
         conn = sqlite3.connect("database.db")
         cur = conn.cursor()
         sql = """SELECT * FROM assets WHERE ruri = ?"""
-        params = (obj,)
+        params = (str(obj),)
         row = cur.execute(sql, params).fetchone()
         conn.close()
 

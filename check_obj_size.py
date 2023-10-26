@@ -61,8 +61,7 @@ def check_obj_size(dpath):
                 break
 
             elif total_size == checked_size and check_count > 1:
-                notgrowing_msg = f"{os.path.basename(dpath)}  is ready. \
-                    End of size check."
+                notgrowing_msg = f"{os.path.basename(dpath)}  is ready."
                 logger.info(chk_count_msg)
                 logger.info(notgrowing_msg)
                 formatted_checked_size = get_size_format(checked_size)
