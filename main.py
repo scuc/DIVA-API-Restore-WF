@@ -74,7 +74,7 @@ def main():
                     obj_dict.update({"volume": key})
                     object_dict = renmv.rename_object(obj_dict)
                     renmv.move_object(obj_dict)
-                    summary.update(key)
+                    summary.update({key: 1})
                 else:
                     logger.info(f"object id not found in the DB - {obj}")
 
@@ -82,6 +82,7 @@ def main():
         logger.info("No new Gorilla Objects found.")
         pass
 
+    print(f"SUMMARY: {summary}")
     complete_message(summary)
 
 
@@ -104,7 +105,11 @@ def complete_message(summary):
     ================================================================\n\
                 DIVA Restore WatchFolder - Complete\n\
                     {date_end}\n\
-                    {[print(f'{key}:{value}') for key, value in summary.items()]}\n\
+                Quantum1: {summary['Quantum1']}\n\
+                Quantum2: {summary['Quantum2']}\n\
+                Quantum3: {summary['Quantum3']}\n\
+                Quantum4: {summary['Quantum4']}\n\
+                Isilon2: {summary['Isilon2']}\n\
     ================================================================\n\
     "
     logger.info(complete_msg)

@@ -34,10 +34,7 @@ def rename_object(obj_dict):
     corrected_oc_name = obj_dict["OC_COMPONENT_NAME"].replace("\\", "/")
     corrected_oc_path = os.path.dirname(corrected_oc_name)
 
-    if obj_dict["TITLETYPE"] == "archive":
-        filename = f"{obj_dict['AO_COMMENT']}_{obj_dict['FILENAME'][-18:]}"
-    else:
-        filename = obj_dict["FILENAME"]
+    filename = f"{obj_dict['AO_COMMENT']}_{obj_dict['FILENAME'][-18:]}"
 
     org_name = Path("/Volumes", obj_dict["volume"], watch_folder, corrected_oc_name)
     new_name = Path(
@@ -67,11 +64,12 @@ def move_object(obj_dict):
     count = 0
     while True:
         try:
+            print(f"\nRENAMED PATH: {obj_dict['renamed_path']}\n")
             source_path = Path(
                 "/Volumes", obj_dict["volume"], watch_folder, obj_dict["renamed_path"]
             )
             dest_path = Path(
-                "/Volumes", obj_dict["volume"], "_Restore", obj_dict["FILENAME"]
+                "/Volumes", obj_dict["volume"], "_Restore", obj_dict["renamed_path"]
             )
 
             if not dest_path.exists():
