@@ -104,12 +104,12 @@ def complete_message(summary):
     complete_msg = f"\n\
     ================================================================\n\
                 DIVA Restore WatchFolder - Complete\n\
-                    {date_end}\n\
-                Quantum1: {summary['Quantum1']}\n\
-                Quantum2: {summary['Quantum2']}\n\
-                Quantum3: {summary['Quantum3']}\n\
-                Quantum4: {summary['Quantum4']}\n\
-                Isilon2: {summary['Isilon2']}\n\
+                {date_end}\n\
+                    Quantum1: {summary['Quantum1']}\n\
+                    Quantum2: {summary['Quantum2']}\n\
+                    Quantum3: {summary['Quantum3']}\n\
+                    Quantum4: {summary['Quantum4']}\n\
+                    Isilon2: {summary['Isilon2']}\n\
     ================================================================\n\
     "
     logger.info(complete_msg)

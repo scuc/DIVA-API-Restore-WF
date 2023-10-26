@@ -69,7 +69,6 @@ def check_db(obj):
         else:
             obj_dict = None
 
-        print(obj_dict)
         return obj_dict
 
     except Exception as e:

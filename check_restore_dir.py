@@ -25,7 +25,6 @@ def check_watch_folders():
         else:
             continue
 
-    print(obj_dict)
     return obj_dict
 
 
