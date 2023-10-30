@@ -7,7 +7,7 @@ import config
 import check_obj_size as objsz
 
 config = config.get_config()
-
+script_root = config["paths"]["script_root"]
 
 logger = logging.getLogger(__name__)
 
@@ -44,7 +44,7 @@ def check_db(obj):
      }
     """
     try:
-        conn = sqlite3.connect("database.db")
+        conn = sqlite3.connect(os.path.join(script_root, "database.db"))
         cur = conn.cursor()
         sql = """SELECT * FROM assets WHERE ruri = ?"""
         params = (str(obj),)

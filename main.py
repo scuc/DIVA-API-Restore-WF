@@ -40,7 +40,7 @@ def set_logger():
                 today = datetime.today()
 
                 log_filename = "{}_{}{}".format(
-                    base, today.strftime("%Y%m%d%H%M%S"), extension
+                    base, today.strftime("%Y%m%d"), extension
                 )
                 config["handlers"][i]["filename"] = log_filename
             else:
