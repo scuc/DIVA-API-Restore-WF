@@ -25,19 +25,29 @@ def rename_object(obj_dict):
 
     # full gorilla path with the objectname
     corrected_oc_name = obj_dict["OC_COMPONENT_NAME"].replace("\\", "/")
+    print(f"CORRECTED OC NAME: {corrected_oc_name}")
 
     # full gorilla path, without the object name
-    corrected_oc_path = os.path.dirname(corrected_oc_name)
+    corrected_oc_path = corrected_oc_name.split("/")[-3:]
+    print(f"CORRECTED OC PATH: {corrected_oc_path}")
 
     filename = f"{obj_dict['AO_COMMENT']}_{obj_dict['FILENAME'][-18:]}"
 
-    org_name = Path("/Volumes", obj_dict["volume"], watch_folder, corrected_oc_name)
+    org_name = Path(
+        "/Volumes",
+        obj_dict["volume"],
+        watch_folder,
+        corrected_oc_path[0],
+        corrected_oc_path[1],
+        obj_dict["RURI"],
+    )
 
     new_path_name = Path(
         "/Volumes",
         obj_dict["volume"],
         watch_folder,
-        corrected_oc_path,
+        corrected_oc_path[0],
+        corrected_oc_path[1],
         filename,
     )
 
@@ -70,6 +80,7 @@ def move_object(obj_dict):
 
             if not dest_path.exists():
                 shutil.move(source_path, dest_path)
+                break
             if dest_path.exists() and count < 2:
                 count += 1
                 source_name = source_path.name
