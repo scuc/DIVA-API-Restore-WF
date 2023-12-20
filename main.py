@@ -68,6 +68,7 @@ def main():
 
     if len(object_dict) != 0:
         for key, value in object_dict.items():
+            logger.info(f"Begin check for: {key}")
             for obj in value:
                 obj_dict = valobj.validate_object(volume=key, obj=obj)
                 if obj_dict is not None:
@@ -77,7 +78,7 @@ def main():
                     summary.update({key: 1})
                 else:
                     logger.info(f"object id not found in the DB - {obj}")
-
+            logger.info(f"End check for: {key}")
     else:
         logger.info("No new Gorilla Objects found.")
         pass
