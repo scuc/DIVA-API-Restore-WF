@@ -88,11 +88,9 @@ def move_object(obj_dict):
         if not dest_path.exists():
             shutil.move(source_path, dest_path)
             logger.info(
-                f"File moved into: \
-            {os.path.join('/Volumes', obj_dict['volume'], '__Restore')}"
+                f"File moved into: {os.path.join('/Volumes', obj_dict['volume'], '__Restore', obj_dict['FILENAME'])}"
             )
-
-        if dest_path.exists():
+        else:
             count += 1
             source_name = source_path.name
             name_check = source_name.split(".")
@@ -105,10 +103,6 @@ def move_object(obj_dict):
 
             source_path = source_path.rename(Path(source_path.parent, new_source_name))
 
-        else:
-            logger.info(
-                f"Unable to move file - Too many copies of {source_path.name} exist in destination path."
-            )
         return
 
     except Exception as e:
