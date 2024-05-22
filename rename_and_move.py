@@ -15,7 +15,7 @@ watch_folder = config["paths"]["watch_folder"]
 logger = logging.getLogger(__name__)
 
 
-def rename_object(obj_dict):
+def rename_object(obj_dict, ):
     """
     Move a restored object out of the sub-dir tree and rename  with a proper file extension.
     """
@@ -25,38 +25,45 @@ def rename_object(obj_dict):
 
     # full gorilla path with the objectname, backslashes replaced
     corrected_oc_name = obj_dict["OC_COMPONENT_NAME"].replace("\\", "/")
-    print(f"CORRECTED OC NAME: {corrected_oc_name}")
+    print(f"\nCORRECTED OC NAME: {corrected_oc_name}\n")
 
     # full list gorilla path components, without the object name
-    oc_path_list = corrected_oc_name.split("/")[-6:]
-    print(f"OC PATH LIST: {oc_path_list}")
+    oc_parts_list = corrected_oc_name.split("/")[-6:]
+    oc_path_list = oc_parts_list[1:] if oc_parts_list[0] == "mnt" else oc_parts_list
+    print(f"OC PATH LIST: {oc_path_list}\n")
 
     filename = f"{obj_dict['AO_COMMENT']}_{obj_dict['FILENAME'][-18:]}"
 
     print(f"OBJ DICT AO COMMENT: {obj_dict['AO_COMMENT']}")
     print(f"OBJ DICT FILENAME: {obj_dict['FILENAME']}")
-    print(f"FILENAME: {filename}")
+    print(f"FILENAME: {filename}\n")
 
     oc_path = "/".join(oc_path_list[:6])
     new_oc_path = "/".join(oc_path_list[:5])
 
+    if obj_dict['volume'] == "fsis3":
+        restore_folder = Path("/Volumes/fsis3/elements-productions/natgeo-post-facility/production-share/", watch_folder)
+    else: 
+        restore_folder = watch_folder
+
     org_path_name = Path(
         "/Volumes",
         obj_dict["volume"],
-        watch_folder,
+        restore_folder,
         oc_path,
     )
 
+    truncated_oc_path = Path(new_oc_path).parent
     new_path_name = Path(
         "/Volumes",
         obj_dict["volume"],
-        watch_folder,
-        new_oc_path,
+        restore_folder,
+        truncated_oc_path,
         filename,
     )
 
     print(f"ORG PATH NAME: {org_path_name}")
-    print(f"NEW PATH NAME: {new_path_name}")
+    print(f"NEW PATH NAME: {new_path_name}\n")
 
     try:
         org_path_name.rename(new_path_name)
@@ -78,10 +85,15 @@ def move_object(obj_dict):
 
     try:
         source_path = Path(obj_dict["renamed_path"])
+
+        if obj_dict['volume'] == "fsis3":
+            restore_folder = Path("/Volumes/fsis3/elements-productions/natgeo-post-facility/production-share/", watch_folder)
+        else: 
+            restore_folder = Path(obj_dict["volume"],"__Restore",)
+        
         dest_path = Path(
             "/Volumes",
-            obj_dict["volume"],
-            "__Restore",
+            restore_folder,
             obj_dict["renamed_path"].name,
         )
 
