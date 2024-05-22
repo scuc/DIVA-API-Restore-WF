@@ -1,6 +1,5 @@
 import logging
 import logging.config
-import os
 from pathlib import Path
 
 import config as cfg
@@ -17,12 +16,15 @@ def check_watch_folders():
     for path in root_paths:
         volume_name = path.split("/")[2]
         p = Path(path, watch_folder)
+        logger.info(f"Checking Path: {str(p.as_posix())}")
         restored_objs = [
             x for x in p.rglob("*") if x.is_file() and not x.name.startswith(".")
         ]
         if len(restored_objs) != 0:
+            logger.info(f"{len(restored_objs)} new restored objects found.\n")
             obj_dict.update({volume_name: restored_objs})
         else:
+            logger.info("No new objects in watchfolder.\n")
             continue
 
     return obj_dict

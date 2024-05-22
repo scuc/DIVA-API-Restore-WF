@@ -63,6 +63,7 @@ def main():
             "Quantum3": 0,
             "Quantum4": 0,
             "Isilon2": 0,
+            "Production_Share": 0,
         }
     )
 
@@ -77,7 +78,7 @@ def main():
                     renmv.move_object(obj_dict)
                     summary.update({key: 1})
                 else:
-                    logger.info(f"object id not found in the DB - {obj}")
+                    logger.error(f"object id not found in the DB - {obj}")
             logger.info(f"End check for: {key}")
     else:
         logger.info("No new Gorilla Objects found.")
@@ -111,6 +112,7 @@ def complete_message(summary):
                     Quantum3: {summary['Quantum3']}\n\
                     Quantum4: {summary['Quantum4']}\n\
                     Isilon2: {summary['Isilon2']}\n\
+                    Production Share: {summary['fsis3']}\n\
     ================================================================\n\
     "
     logger.info(complete_msg)
