@@ -87,7 +87,7 @@ def move_object(obj_dict):
         source_path = Path(obj_dict["renamed_path"])
 
         if obj_dict['volume'] == "fsis3":
-            restore_folder = Path("/Volumes/fsis3/elements-productions/natgeo-post-facility/production-share/", watch_folder)
+            restore_folder = Path("/Volumes/fsis3/elements-productions/natgeo-post-facility/production-share/", "__Restore/")
         else: 
             restore_folder = Path(obj_dict["volume"],"__Restore",)
         
