@@ -64,6 +64,7 @@ def main():
             "Quantum4": 0,
             "Isilon2": 0,
             "Production_Share": 0,
+            "Quantum2/video-research": 0,
         }
     )
 
@@ -113,6 +114,7 @@ def complete_message(summary):
                     Quantum4: {summary['Quantum4']}\n\
                     Isilon2: {summary['Isilon2']}\n\
                     Production Share: {summary['fsis3']}\n\
+                    Quantum2/Research: {summary['Quantum2/video-research']}\n\
     ================================================================\n\
     "
     logger.info(complete_msg)

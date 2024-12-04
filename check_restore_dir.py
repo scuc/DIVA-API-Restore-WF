@@ -1,5 +1,6 @@
 import logging
 import logging.config
+import os
 from pathlib import Path
 
 import config as cfg
@@ -14,7 +15,10 @@ watch_folder = config["paths"]["watch_folder"]
 def check_watch_folders():
     obj_dict = {}
     for path in root_paths:
-        volume_name = path.split("/")[2]
+        if "video-research" not in path:
+            volume_name = path.split("/")[2]
+        else:
+            volume_name = f"Quantum2/{path.split('/')[-2]}"
         p = Path(path, watch_folder)
         logger.info(f"Checking Path: {str(p.as_posix())}")
         restored_objs = [

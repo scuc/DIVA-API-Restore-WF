@@ -15,7 +15,9 @@ watch_folder = config["paths"]["watch_folder"]
 logger = logging.getLogger(__name__)
 
 
-def rename_object(obj_dict, ):
+def rename_object(
+    obj_dict,
+):
     """
     Move a restored object out of the sub-dir tree and rename  with a proper file extension.
     """
@@ -41,9 +43,13 @@ def rename_object(obj_dict, ):
     oc_path = "/".join(oc_path_list[:6])
     new_oc_path = "/".join(oc_path_list[:5])
 
-    if obj_dict['volume'] == "fsis3":
-        restore_folder = Path("/Volumes/fsis3/elements-productions/natgeo-post-facility/production-share/", watch_folder)
-    else: 
+    if obj_dict["volume"] == "fsis3":
+        restore_folder = Path("/Volumes/fsis3/e/natgeo/production-share/", watch_folder)
+    elif obj_dict["volume"] == "Quantum2/video-research":
+        restore_folder = Path(
+            "/Volumes/Quantum2/e/natgeo/video-research/", watch_folder
+        )
+    else:
         restore_folder = watch_folder
 
     org_path_name = Path(
@@ -86,11 +92,20 @@ def move_object(obj_dict):
     try:
         source_path = Path(obj_dict["renamed_path"])
 
-        if obj_dict['volume'] == "fsis3":
-            restore_folder = Path("/Volumes/fsis3/elements-productions/natgeo-post-facility/production-share/", "__Restore/")
-        else: 
-            restore_folder = Path(obj_dict["volume"],"__Restore",)
-        
+        if obj_dict["volume"] == "fsis3":
+            restore_folder = Path(
+                "/Volumes/fsis3/e/natgeo/production-share/", "__Restore/"
+            )
+        elif obj_dict["volume"] == "Quantum2/video-research":
+            restore_folder = Path(
+                "/Volumes/Quantum2/e/natgeo/video-research/", "__Restore/"
+            )
+        else:
+            restore_folder = Path(
+                obj_dict["volume"],
+                "__Restore",
+            )
+
         dest_path = Path(
             "/Volumes",
             restore_folder,
